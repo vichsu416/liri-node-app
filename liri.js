@@ -4,22 +4,11 @@ var spotify = require('node-spotify-api');
 var request = require('request');
 var fs = require('fs');
 var inquirer = require('inquirer');
-var clear = require('clear');
-var figlet = require('figlet');
-var chalk = require('chalk');
 var twitterCredentials = true;
 
 // Import Twitter API secrets from keys.js
 try {var keys = require('/keys.js');}
 catch(err) {twitterCredentials = false;}
-
-// On run, clear the terminal then show the logo with figlet.
-clear();
-console.log(
-    chalk.cyan(
-        figlet.textSync('liri', {horizontalLayout: 'full'})
-    )
-);
 
 // Initial question.
 var mainQuestion = {
@@ -217,7 +206,7 @@ var displaySpotifyResults = function (err, data) {
 var twitterCall = function () {
     if (twitterCredentials) {
         var client = new Twitter(keys.twitterKeys);
-        var params = {screen_name: 'Haru28607885'}; // Replace with your username!
+        var params = {screen_name: 'Haru28607885'};
         client.get('statuses/user_timeline', params, function (error, tweets) {
             if (error) {
                 return console.log('\nSorry, an error occurred. Please check your credentials and try again.');
